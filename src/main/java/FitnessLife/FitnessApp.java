@@ -4,6 +4,8 @@
  */
 package FitnessLife;
 
+import java.util.logging.Level; 
+import java.util.logging.Logger; 
 /**
  *
  * @author ALE
@@ -12,11 +14,13 @@ public class FitnessApp extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FitnessApp.class.getName());
 
+    
     /**
      * Creates new form FitnessApp
      */
     public FitnessApp() {
         initComponents();
+ 
     }
 
     /**
@@ -29,39 +33,179 @@ public class FitnessApp extends javax.swing.JFrame {
     private void initComponents() {
 
         jToolBar1 = new javax.swing.JToolBar();
-        jPanel1 = new javax.swing.JPanel();
+        PanelPrincipal = new javax.swing.JPanel();
+        PilarIzquierdo = new javax.swing.JPanel();
+        txtFitnessLife = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        AlumnoBoton = new javax.swing.JButton();
+        PanelVioleSuperior = new javax.swing.JPanel();
+        txtFecha = new javax.swing.JLabel();
+        txtNombre = new javax.swing.JLabel();
+        PanelMedio = new javax.swing.JPanel();
+        BuscarBarra = new javax.swing.JTextField();
+        buscarBoton = new javax.swing.JButton();
+        txtAlumnos = new javax.swing.JLabel();
 
         jToolBar1.setRollover(true);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        PanelPrincipal.setBackground(new java.awt.Color(255, 255, 255));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1020, Short.MAX_VALUE)
+        PilarIzquierdo.setBackground(new java.awt.Color(46, 33, 77));
+        PilarIzquierdo.setPreferredSize(new java.awt.Dimension(270, 640));
+
+        txtFitnessLife.setFont(new java.awt.Font("Roboto Medium", 0, 36)); // NOI18N
+        txtFitnessLife.setForeground(new java.awt.Color(255, 255, 255));
+        txtFitnessLife.setText("FitnessLife");
+
+        AlumnoBoton.setBackground(new java.awt.Color(46, 33, 77));
+        AlumnoBoton.setFont(new java.awt.Font("Roboto Condensed", 1, 18)); // NOI18N
+        AlumnoBoton.setForeground(new java.awt.Color(255, 255, 255));
+        AlumnoBoton.setText("Alumno");
+        AlumnoBoton.setBorder(null);
+        AlumnoBoton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        AlumnoBoton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AlumnoBotonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout PilarIzquierdoLayout = new javax.swing.GroupLayout(PilarIzquierdo);
+        PilarIzquierdo.setLayout(PilarIzquierdoLayout);
+        PilarIzquierdoLayout.setHorizontalGroup(
+            PilarIzquierdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(AlumnoBoton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(PilarIzquierdoLayout.createSequentialGroup()
+                .addGroup(PilarIzquierdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PilarIzquierdoLayout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(PilarIzquierdoLayout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(txtFitnessLife)))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 640, Short.MAX_VALUE)
+        PilarIzquierdoLayout.setVerticalGroup(
+            PilarIzquierdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PilarIzquierdoLayout.createSequentialGroup()
+                .addGap(59, 59, 59)
+                .addComponent(txtFitnessLife)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(95, 95, 95)
+                .addComponent(AlumnoBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(335, Short.MAX_VALUE))
+        );
+
+        PanelVioleSuperior.setBackground(new java.awt.Color(139, 53, 172));
+
+        txtFecha.setFont(new java.awt.Font("Roboto Black", 3, 18)); // NOI18N
+        txtFecha.setForeground(new java.awt.Color(255, 255, 255));
+        txtFecha.setText("Hoy es 8 deJunio de 1986");
+
+        txtNombre.setFont(new java.awt.Font("Roboto Black", 3, 36)); // NOI18N
+        txtNombre.setForeground(new java.awt.Color(255, 255, 255));
+        txtNombre.setText("Buenos días Fernando");
+
+        javax.swing.GroupLayout PanelVioleSuperiorLayout = new javax.swing.GroupLayout(PanelVioleSuperior);
+        PanelVioleSuperior.setLayout(PanelVioleSuperiorLayout);
+        PanelVioleSuperiorLayout.setHorizontalGroup(
+            PanelVioleSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelVioleSuperiorLayout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addGroup(PanelVioleSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtNombre)
+                    .addComponent(txtFecha))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        PanelVioleSuperiorLayout.setVerticalGroup(
+            PanelVioleSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelVioleSuperiorLayout.createSequentialGroup()
+                .addContainerGap(78, Short.MAX_VALUE)
+                .addComponent(txtNombre)
+                .addGap(18, 18, 18)
+                .addComponent(txtFecha)
+                .addGap(47, 47, 47))
+        );
+
+        PanelMedio.setBackground(new java.awt.Color(255, 255, 255));
+
+        BuscarBarra.setActionCommand("<Not Set>");
+        BuscarBarra.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        buscarBoton.setText("Buscar");
+
+        txtAlumnos.setFont(new java.awt.Font("Roboto Black", 1, 24)); // NOI18N
+        txtAlumnos.setText("Buscar Alumnos");
+
+        javax.swing.GroupLayout PanelMedioLayout = new javax.swing.GroupLayout(PanelMedio);
+        PanelMedio.setLayout(PanelMedioLayout);
+        PanelMedioLayout.setHorizontalGroup(
+            PanelMedioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelMedioLayout.createSequentialGroup()
+                .addGroup(PanelMedioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelMedioLayout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(BuscarBarra, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(buscarBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(PanelMedioLayout.createSequentialGroup()
+                        .addGap(78, 78, 78)
+                        .addComponent(txtAlumnos)))
+                .addContainerGap(72, Short.MAX_VALUE))
+        );
+        PanelMedioLayout.setVerticalGroup(
+            PanelMedioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelMedioLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(txtAlumnos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(PanelMedioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BuscarBarra, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buscarBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout PanelPrincipalLayout = new javax.swing.GroupLayout(PanelPrincipal);
+        PanelPrincipal.setLayout(PanelPrincipalLayout);
+        PanelPrincipalLayout.setHorizontalGroup(
+            PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelPrincipalLayout.createSequentialGroup()
+                .addComponent(PilarIzquierdo, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(PanelVioleSuperior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(PanelPrincipalLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(PanelMedio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+        );
+        PanelPrincipalLayout.setVerticalGroup(
+            PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(PilarIzquierdo, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
+            .addGroup(PanelPrincipalLayout.createSequentialGroup()
+                .addComponent(PanelVioleSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PanelMedio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(PanelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(PanelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void AlumnoBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlumnoBotonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AlumnoBotonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -89,7 +233,18 @@ public class FitnessApp extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton AlumnoBoton;
+    private javax.swing.JTextField BuscarBarra;
+    private javax.swing.JPanel PanelMedio;
+    private javax.swing.JPanel PanelPrincipal;
+    private javax.swing.JPanel PanelVioleSuperior;
+    private javax.swing.JPanel PilarIzquierdo;
+    private javax.swing.JButton buscarBoton;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JLabel txtAlumnos;
+    private javax.swing.JLabel txtFecha;
+    private javax.swing.JLabel txtFitnessLife;
+    private javax.swing.JLabel txtNombre;
     // End of variables declaration//GEN-END:variables
 }
