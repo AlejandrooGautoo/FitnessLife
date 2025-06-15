@@ -8,6 +8,7 @@ package FitnessLife;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMTMaterialLighterIJTheme;
 import java.awt.Color;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import logica.Alumnos;
 
@@ -27,6 +28,22 @@ public class FitnessApp extends javax.swing.JFrame {
   
     
     public void refrescarTabla(){
+        while(modelo.getRowCount()>0){
+            modelo.removeRow(0);
+        }
+        
+        for (Alumnos alumno : listaAlumnos){
+        Object a[] = new Object[8];
+        a[0] = alumno.getNombre();
+        a[1] = alumno.getApellido();
+        a[2] = alumno.getDni();
+        a[3] = alumno.getPeso();
+        a[4] = alumno.getAltura();
+        a[5] = alumno.getGenero();
+        a[6] = alumno.getRutina();
+        a[7] = alumno.getDias();
+        modelo.addRow(a);
+        }
         tblRegistroAlumnos.setModel(modelo);
     }
     public FitnessApp() {
@@ -206,7 +223,7 @@ public class FitnessApp extends javax.swing.JFrame {
         BotonAñadir.setBackground(new java.awt.Color(51, 0, 51));
         BotonAñadir.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         BotonAñadir.setForeground(new java.awt.Color(255, 255, 255));
-        BotonAñadir.setText("AÑARDIR");
+        BotonAñadir.setText("AÑADIR");
         BotonAñadir.setBorder(null);
         BotonAñadir.setBorderPainted(false);
         BotonAñadir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -375,12 +392,12 @@ public class FitnessApp extends javax.swing.JFrame {
                             .addComponent(jLabel8)
                             .addComponent(txtDiasAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelMedioLayout.createSequentialGroup()
+                    .addGroup(PanelMedioLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(BotonBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(29, 29, 29)))
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(166, 166, 166))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         txtMensaje.setText("Un gusto volver a verte ❤");
@@ -431,7 +448,21 @@ public class FitnessApp extends javax.swing.JFrame {
     }//GEN-LAST:event_BotonGuardarActionPerformed
 
     private void BotonAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAñadirActionPerformed
-        // TODO add your handling code here:
+       try{
+        Alumnos alumno = new Alumnos();
+       alumno.setNombre(txtNombreAlumno.getText());
+       alumno.setApellido(txtApellidoAlumno.getText());
+       alumno.setDni(Integer.parseInt(txtDniAlumno.getText()));
+       alumno.setPeso(Integer.parseInt(txtPesoAlumno.getText()));
+       alumno.setAltura(Double.parseDouble(txtAlturaAlumno.getText()));
+       alumno.setGenero(cboGeneroAlumno.getSelectedItem().toString());
+       alumno.setRutina(cboRutina.getSelectedItem().toString());
+       alumno.setDias(Integer.parseInt(txtDiasAlumno.getText()));
+       listaAlumnos.add(alumno);
+       refrescarTabla();
+       } catch (Exception e){
+       JOptionPane.showMessageDialog(this, "ERROR");
+       }
     }//GEN-LAST:event_BotonAñadirActionPerformed
 
     private void BotonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonBorrarActionPerformed
