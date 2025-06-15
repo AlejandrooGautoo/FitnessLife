@@ -1,10 +1,5 @@
-
 package logica;
 
-/**
- *
- * @author santi
- */
 public class Alumnos {
     String nombre; 
     String apellido; 
