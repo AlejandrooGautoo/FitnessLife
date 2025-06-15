@@ -13,24 +13,24 @@ import javax.swing.table.DefaultTableModel;
 import logica.Alumnos;
 import logica.Rutinas;
 
-/**
- *
- * @author ALE
- */
+
 public class FitnessApp extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FitnessApp.class.getName());
 
     
     DefaultTableModel modelo = new DefaultTableModel();
+    DefaultTableModel modelo2 = new DefaultTableModel();
     ArrayList<Alumnos> listaAlumnos = new ArrayList<Alumnos>();
+    ArrayList<Rutinas> listaRutinas = new ArrayList<Rutinas>();
     
   
     
-    public void refrescarTabla(){
+    public void refrescarTablaAlumno(){
         while(modelo.getRowCount()>0){
             modelo.removeRow(0);
         }
+    
         
         for (Alumnos alumno : listaAlumnos){
         Object a[] = new Object[8];
@@ -46,22 +46,51 @@ public class FitnessApp extends javax.swing.JFrame {
         }
         tblRegistroAlumnos.setModel(modelo);
     }
-    public FitnessApp() {
-        initComponents();
-        InitStyles();
-        this.setTitle("Alumnos");
-        this.setSize(900, 700);
-        this.setLocationRelativeTo(null);
-        modelo.addColumn("Nombre");
-        modelo.addColumn("Apellido");
-        modelo.addColumn("DNI");
-        modelo.addColumn("Peso(KG)");
-        modelo.addColumn("Altura");
-        modelo.addColumn("Género");
-        modelo.addColumn("Rutina");
-        modelo.addColumn("Dias/semana");
-        refrescarTabla();
+    
+    public void refrescarTablaRutina(){
+        while(modelo2.getRowCount()>0){
+            modelo2.removeRow(0);
+        }
+        for (Rutinas rutina : listaRutinas){
+        Object r[] = new Object[6];
+        r[0] = rutina.getEjercicio();
+        r[1] = rutina.getSeriesRepeticiones();
+        r[2] = rutina.getPesoEjercicio();
+        r[3] = rutina.getDescanso();
+        r[4] = rutina.getMusculoObjetivo();
+        r[5] = rutina.getDia();
+        modelo2.addRow(r);
+        }
+        tblRutinas.setModel(modelo2);
     }
+    
+    public FitnessApp() {
+    initComponents();
+    InitStyles();
+    this.setTitle("Alumnos");
+    this.setSize(900, 700);
+    this.setLocationRelativeTo(null);
+    
+    // Configurar tabla de alumnos
+    modelo.addColumn("Nombre");
+    modelo.addColumn("Apellido");
+    modelo.addColumn("DNI");
+    modelo.addColumn("Peso(KG)");
+    modelo.addColumn("Altura");
+    modelo.addColumn("Género");
+    modelo.addColumn("Rutina");
+    modelo.addColumn("Dias/semana");
+    refrescarTablaAlumno();
+    
+    // AGREGAR: Configurar tabla de rutinas
+    modelo2.addColumn("Ejercicios");
+    modelo2.addColumn("Series/Repeticiones");
+    modelo2.addColumn("PesoEjercicio");
+    modelo2.addColumn("Descanso");
+    modelo2.addColumn("Musculo Objetivo");
+    modelo2.addColumn("Dia");
+    refrescarTablaRutina();
+}
     private void InitStyles(){
         
         txtMensaje.putClientProperty( "FlatLaf.style", "font: 14 $light.font" );
@@ -341,11 +370,12 @@ public class FitnessApp extends javax.swing.JFrame {
                                 .addContainerGap()
                                 .addComponent(jLabel5)))
                         .addGap(18, 18, 18)
-                        .addGroup(PanelAlumnosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(txtApellidoAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cboGeneroAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))
+                        .addGroup(PanelAlumnosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(PanelAlumnosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel2)
+                                .addComponent(txtApellidoAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cboGeneroAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(17, 17, 17))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelAlumnosLayout.createSequentialGroup()
                         .addContainerGap()
@@ -578,7 +608,7 @@ public class FitnessApp extends javax.swing.JFrame {
        alumno.setRutina(cboRutina.getSelectedItem().toString());
        alumno.setDias(Integer.parseInt(txtDiasAlumno.getText()));
        listaAlumnos.add(alumno);
-       refrescarTabla();
+       refrescarTablaAlumno();
        } catch (Exception e){
        JOptionPane.showMessageDialog(this, "ERROR");
        }
@@ -616,12 +646,13 @@ public class FitnessApp extends javax.swing.JFrame {
         try{
             Rutinas rutina = new Rutinas();
             rutina.setEjercicio(txtEjerciciosRutina.getText());
-            rutina.setSeriesRepeticiones(txtSeriesRutina.getText());
-            rutina.setPesoEjercicio(txtPesoEjercicioRutina.getText());
-            rutina.setDescanso(txtDescansoRutina.getText());
+            rutina.setSeriesRepeticiones(Integer.parseInt(txtSeriesRutina.getText()));
+            rutina.setPesoEjercicio(Integer.parseInt(txtPesoEjercicioRutina.getText()));
+            rutina.setDescanso(Integer.parseInt(txtDescansoRutina.getText()));
             rutina.setMusculoObjetivo(txtMusculoRutina.getText());
+            rutina.setDia(cboDiaRutina.getSelectedItem().toString());
             listaRutinas.add(rutina);
-            refrescarTabla();
+            refrescarTablaRutina();
             } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "ERROR");    
             }
