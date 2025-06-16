@@ -1,6 +1,8 @@
 package FitnessLife;
 
-
+import java.sql.*;
+import Persistencia.dao.AlumnosDao;
+import Persistencia.config.DataBaseConfig;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMTMaterialLighterIJTheme;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -17,7 +19,9 @@ public class FitnessApp extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FitnessApp.class.getName());
 
-    
+    private Connection connection;
+    private AlumnosDao alumnosDao;
+   
     DefaultTableModel tablaAlumno = new DefaultTableModel();
     DefaultTableModel tablaRutina = new DefaultTableModel();
     JTable jTableAlumnos = new JTable(tablaAlumno);
@@ -68,9 +72,30 @@ public class FitnessApp extends javax.swing.JFrame {
     public FitnessApp() {
     initComponents();
     InitStyles();
+    
     this.setTitle("Alumnos");
     this.setSize(1100, 700);
     this.setLocationRelativeTo(null);
+    
+    try {
+        connection = DriverManager.getConnection(
+            DataBaseConfig.URL, 
+            DataBaseConfig.USER, 
+            DataBaseConfig.PASSWORD
+        );
+        
+        alumnosDao = new AlumnosDao(connection);
+        
+        
+        // Crear las tablas si no existen
+        alumnosDao.crearTabla();
+        
+        
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Error al conectar con la base de datos: " + e.getMessage());
+        e.printStackTrace();
+    }
+
     
     jTableAlumnos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     jTableAlumnos.setRowSelectionAllowed(true);
@@ -632,14 +657,16 @@ public class FitnessApp extends javax.swing.JFrame {
     private void BotonAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAñadirActionPerformed
        try{
         Alumnos alumno = new Alumnos();
-       alumno.setNombre(txtNombreAlumno.getText());
-       alumno.setApellido(txtApellidoAlumno.getText());
-       alumno.setDni(Integer.parseInt(txtDniAlumno.getText()));
-       alumno.setPeso(Integer.parseInt(txtPesoAlumno.getText()));
-       alumno.setAltura(Double.parseDouble(txtAlturaAlumno.getText()));
-       alumno.setGenero(cboGeneroAlumno.getSelectedItem().toString());
-       alumno.setRutina(cboRutina.getSelectedItem().toString());
+       alumno.setNombre(txtNombreAlumno.getText().trim());
+       alumno.setApellido(txtApellidoAlumno.getText().trim());
+       alumno.setDni(Integer.parseInt(txtDniAlumno.getText().trim()));
+       alumno.setPeso(Integer.parseInt(txtPesoAlumno.getText().trim()));
+       alumno.setAltura(Double.parseDouble(txtAlturaAlumno.getText().trim()));
+       alumno.setGenero(cboGeneroAlumno.getSelectedItem().toString().trim());
+       alumno.setRutina(cboRutina.getSelectedItem().toString().trim());
        alumno.setDias(Integer.parseInt(txtDiasAlumno.getText()));
+      
+       boolean guardadoExitoso = alumnosDao.añadir(alumno);
        listaAlumnos.add(alumno);
        txtNombreAlumno.setText("");
        txtApellidoAlumno.setText("");
@@ -688,13 +715,14 @@ public class FitnessApp extends javax.swing.JFrame {
     private void btnAñadirRutinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirRutinaActionPerformed
         try{
             Rutinas rutina = new Rutinas();
-            rutina.setEjercicio(txtEjerciciosRutina.getText());
-            rutina.setSeriesRepeticiones(Integer.parseInt(txtSeriesRutina.getText()));
-            rutina.setPesoEjercicio(Integer.parseInt(txtPesoEjercicioRutina.getText()));
-            rutina.setDescanso(Integer.parseInt(txtDescansoRutina.getText()));
-            rutina.setMusculoObjetivo(txtMusculoRutina.getText());
+            rutina.setEjercicio(txtEjerciciosRutina.getText().trim());
+            rutina.setSeriesRepeticiones(Integer.parseInt(txtSeriesRutina.getText().trim()));
+            rutina.setPesoEjercicio(Integer.parseInt(txtPesoEjercicioRutina.getText().trim()));
+            rutina.setDescanso(Integer.parseInt(txtDescansoRutina.getText().trim()));
+            rutina.setMusculoObjetivo(txtMusculoRutina.getText().trim());
             rutina.setDia(cboDiaRutina.getSelectedItem().toString());
             listaRutinas.add(rutina);
+            
             txtEjerciciosRutina.setText("");
             txtSeriesRutina.setText("");
             txtPesoEjercicioRutina.setText("");
