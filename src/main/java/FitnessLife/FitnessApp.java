@@ -268,12 +268,16 @@ public class FitnessApp extends javax.swing.JFrame {
             tblRegistroAlumnos.getColumnModel().getColumn(7).setResizable(false);
         }
 
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Nombre:");
 
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Apellido:");
 
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("DNI:");
 
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Peso(KG):");
 
         txtNombreAlumno.addActionListener(new java.awt.event.ActionListener() {
@@ -282,12 +286,16 @@ public class FitnessApp extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Altura:");
 
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Género:");
 
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Rutina:");
 
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Dias/semana:");
 
         txtDiasAlumno.addActionListener(new java.awt.event.ActionListener() {
@@ -413,10 +421,13 @@ public class FitnessApp extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Alumnos", PanelAlumnos);
 
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Ejercicios:");
 
+        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Series/Repeticiones:");
 
+        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("PesoEjercicio:");
 
         txtEjerciciosRutina.addActionListener(new java.awt.event.ActionListener() {
@@ -425,6 +436,7 @@ public class FitnessApp extends javax.swing.JFrame {
             }
         });
 
+        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("Descanso:");
 
         txtDescansoRutina.addActionListener(new java.awt.event.ActionListener() {
@@ -433,8 +445,10 @@ public class FitnessApp extends javax.swing.JFrame {
             }
         });
 
+        jLabel13.setForeground(new java.awt.Color(0, 0, 0));
         jLabel13.setText("Musculo Objetivo:");
 
+        jLabel14.setForeground(new java.awt.Color(0, 0, 0));
         jLabel14.setText("Dia:");
 
         cboDiaRutina.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado" }));
