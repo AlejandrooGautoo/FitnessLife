@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package FitnessLife;
 
 
@@ -12,6 +8,9 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import logica.Alumnos;
 import logica.Rutinas;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+
 
 
 public class FitnessApp extends javax.swing.JFrame {
@@ -19,16 +18,17 @@ public class FitnessApp extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FitnessApp.class.getName());
 
     
-    DefaultTableModel modelo = new DefaultTableModel();
+    DefaultTableModel tablaAlumno = new DefaultTableModel();
     DefaultTableModel modelo2 = new DefaultTableModel();
+    JTable jTableAlumnos = new JTable(tablaAlumno);
     ArrayList<Alumnos> listaAlumnos = new ArrayList<Alumnos>();
     ArrayList<Rutinas> listaRutinas = new ArrayList<Rutinas>();
     
   
     
     public void refrescarTablaAlumno(){
-        while(modelo.getRowCount()>0){
-            modelo.removeRow(0);
+        while(tablaAlumno.getRowCount()>0){
+            tablaAlumno.removeRow(0);
         }
     
         
@@ -42,9 +42,9 @@ public class FitnessApp extends javax.swing.JFrame {
         a[5] = alumno.getGenero();
         a[6] = alumno.getRutina();
         a[7] = alumno.getDias();
-        modelo.addRow(a);
+        tablaAlumno.addRow(a);
         }
-        tblRegistroAlumnos.setModel(modelo);
+        tblRegistroAlumnos.setModel(tablaAlumno);
     }
     
     public void refrescarTablaRutina(){
@@ -71,15 +71,19 @@ public class FitnessApp extends javax.swing.JFrame {
     this.setSize(900, 700);
     this.setLocationRelativeTo(null);
     
+    jTableAlumnos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    jTableAlumnos.setRowSelectionAllowed(true);
+    jTableAlumnos.setColumnSelectionAllowed(false);
+    
     // Configurar tabla de alumnos
-    modelo.addColumn("Nombre");
-    modelo.addColumn("Apellido");
-    modelo.addColumn("DNI");
-    modelo.addColumn("Peso(KG)");
-    modelo.addColumn("Altura");
-    modelo.addColumn("Género");
-    modelo.addColumn("Rutina");
-    modelo.addColumn("Dias/semana");
+    tablaAlumno.addColumn("Nombre");
+    tablaAlumno.addColumn("Apellido");
+    tablaAlumno.addColumn("DNI");
+    tablaAlumno.addColumn("Peso(KG)");
+    tablaAlumno.addColumn("Altura");
+    tablaAlumno.addColumn("Género");
+    tablaAlumno.addColumn("Rutina");
+    tablaAlumno.addColumn("Dias/semana");
     refrescarTablaAlumno();
     
     // AGREGAR: Configurar tabla de rutinas
@@ -116,7 +120,7 @@ public class FitnessApp extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         PanelAlumnos = new javax.swing.JPanel();
         BotonAñadir = new javax.swing.JButton();
-        BotonBorrar = new javax.swing.JButton();
+        btnBorrarAlumno = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblRegistroAlumnos = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
@@ -237,16 +241,16 @@ public class FitnessApp extends javax.swing.JFrame {
             }
         });
 
-        BotonBorrar.setBackground(new java.awt.Color(51, 0, 51));
-        BotonBorrar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        BotonBorrar.setForeground(new java.awt.Color(255, 255, 255));
-        BotonBorrar.setText("BORRAR");
-        BotonBorrar.setBorder(null);
-        BotonBorrar.setBorderPainted(false);
-        BotonBorrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        BotonBorrar.addActionListener(new java.awt.event.ActionListener() {
+        btnBorrarAlumno.setBackground(new java.awt.Color(51, 0, 51));
+        btnBorrarAlumno.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnBorrarAlumno.setForeground(new java.awt.Color(255, 255, 255));
+        btnBorrarAlumno.setText("BORRAR");
+        btnBorrarAlumno.setBorder(null);
+        btnBorrarAlumno.setBorderPainted(false);
+        btnBorrarAlumno.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBorrarAlumno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotonBorrarActionPerformed(evt);
+                btnBorrarAlumnoActionPerformed(evt);
             }
         });
 
@@ -359,7 +363,7 @@ public class FitnessApp extends javax.swing.JFrame {
                 .addGap(64, 64, 64)
                 .addGroup(PanelAlumnosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(BotonAñadir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BotonBorrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnBorrarAlumno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(92, 92, 92))
         );
         PanelAlumnosLayout.setVerticalGroup(
@@ -414,7 +418,7 @@ public class FitnessApp extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(BotonAñadir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(BotonBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnBorrarAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(54, 54, 54)))
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -498,6 +502,11 @@ public class FitnessApp extends javax.swing.JFrame {
         btnBorrarRutina.setBorder(null);
         btnBorrarRutina.setBorderPainted(false);
         btnBorrarRutina.setMaximumSize(new java.awt.Dimension(70, 60));
+        btnBorrarRutina.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarRutinaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout PanelRutinasLayout = new javax.swing.GroupLayout(PanelRutinas);
         PanelRutinas.setLayout(PanelRutinasLayout);
@@ -627,15 +636,26 @@ public class FitnessApp extends javax.swing.JFrame {
        alumno.setRutina(cboRutina.getSelectedItem().toString());
        alumno.setDias(Integer.parseInt(txtDiasAlumno.getText()));
        listaAlumnos.add(alumno);
+       txtNombreAlumno.setText("");
+       txtApellidoAlumno.setText("");
+       txtDniAlumno.setText("");
+       txtPesoAlumno.setText("");
+       txtAlturaAlumno.setText("");
+       txtDiasAlumno.setText("");
        refrescarTablaAlumno();
        } catch (Exception e){
        JOptionPane.showMessageDialog(this, "ERROR");
        }
     }//GEN-LAST:event_BotonAñadirActionPerformed
 
-    private void BotonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonBorrarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BotonBorrarActionPerformed
+    private void btnBorrarAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarAlumnoActionPerformed
+        int fila = tblRegistroAlumnos.getSelectedRow();
+        if (fila!= -1){
+            tablaAlumno.removeRow(fila);
+            listaAlumnos.remove(fila);
+            
+        }
+    }//GEN-LAST:event_btnBorrarAlumnoActionPerformed
 
     private void txtNombreAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreAlumnoActionPerformed
         // TODO add your handling code here:
@@ -671,6 +691,11 @@ public class FitnessApp extends javax.swing.JFrame {
             rutina.setMusculoObjetivo(txtMusculoRutina.getText());
             rutina.setDia(cboDiaRutina.getSelectedItem().toString());
             listaRutinas.add(rutina);
+            txtEjerciciosRutina.setText("");
+            txtSeriesRutina.setText("");
+            txtPesoEjercicioRutina.setText("");
+            txtDescansoRutina.setText("");
+            txtMusculoRutina.setText("");
             refrescarTablaRutina();
             } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "ERROR");    
@@ -680,6 +705,10 @@ public class FitnessApp extends javax.swing.JFrame {
     private void tblRutinasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblRutinasMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_tblRutinasMouseClicked
+
+    private void btnBorrarRutinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarRutinaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBorrarRutinaActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -706,13 +735,13 @@ public class FitnessApp extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonAñadir;
-    private javax.swing.JButton BotonBorrar;
     private javax.swing.JPanel PanelAlumnos;
     private javax.swing.JPanel PanelPrincipal;
     private javax.swing.JPanel PanelRutinas;
     private javax.swing.JPanel PilarVioleta;
     private javax.swing.JPanel SuperiorLila;
     private javax.swing.JButton btnAñadirRutina;
+    private javax.swing.JButton btnBorrarAlumno;
     private javax.swing.JButton btnBorrarRutina;
     private javax.swing.JComboBox<String> cboDiaRutina;
     private javax.swing.JComboBox<String> cboGeneroAlumno;

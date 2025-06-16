@@ -264,7 +264,7 @@
                           <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="BotonAñadir" alignment="1" min="-2" pref="115" max="-2" attributes="0"/>
-                              <Component id="BotonBorrar" alignment="1" min="-2" pref="115" max="-2" attributes="0"/>
+                              <Component id="btnBorrarAlumno" alignment="1" min="-2" pref="115" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
                       </Group>
@@ -340,7 +340,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="BotonAñadir" min="-2" pref="40" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="BotonBorrar" min="-2" pref="40" max="-2" attributes="0"/>
+                                  <Component id="btnBorrarAlumno" min="-2" pref="40" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -375,7 +375,7 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotonA&#xf1;adirActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="BotonBorrar">
+                <Component class="javax.swing.JButton" name="btnBorrarAlumno">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="33" green="0" red="33" type="rgb"/>
@@ -396,7 +396,7 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotonBorrarActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBorrarAlumnoActionPerformed"/>
                   </Events>
                 </Component>
                 <Container class="javax.swing.JScrollPane" name="jScrollPane2">
@@ -834,6 +834,9 @@
                       <Dimension value="[70, 60]"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBorrarRutinaActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
