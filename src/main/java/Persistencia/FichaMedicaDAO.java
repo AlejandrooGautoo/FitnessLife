@@ -1,4 +1,4 @@
-package Persistencia;
+/*package Persistencia;
 
 import logica.FichaMedico; // <-- Asegúrate de que el nombre de la clase sea exacto (FichaMedico)
 import java.sql.Connection;
@@ -41,4 +41,4 @@ public class FichaMedicaDAO {
     }
     
     // Puedes añadir métodos para insertar, actualizar, eliminar fichas médicas aquí también
-}
+}*/

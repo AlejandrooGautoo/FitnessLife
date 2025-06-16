@@ -1,4 +1,4 @@
-package Persistencia;
+/*package Persistencia;
 
 import logica.Alumnos;      // Tu clase POJO de Alumno
 import logica.FichaMedico; // ¡Este es el import que faltaba si interactúa con FichaMedica!
@@ -39,4 +39,4 @@ public class AlumnoDAO {
         }
         return ficha;
     }
-}
+}*/

@@ -1,3 +1,4 @@
+/* 
 package Persistencia;
 
 import logica.Rutinas; // Importa tu clase POJO Rutinas
@@ -10,11 +11,7 @@ import java.util.List;
 
 public class RutinaDAO {
 
-    /**
-     * Inserta una nueva rutina en la base de datos.
-     * @param rutina El objeto Rutinas a insertar.
-     * @throws SQLException Si ocurre un error al acceder a la base de datos.
-     */
+   
     public void insertarRutina(Rutinas rutina) throws SQLException {
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -37,15 +34,7 @@ public class RutinaDAO {
         }
     }
 
-    /**
-     * Obtiene una rutina por su ejercicio y día.
-     * Nota: Podrías necesitar un ID único para la tabla de rutinas
-     * si ejercicio y día no son suficientes para identificar una rutina única.
-     * @param ejercicio El nombre del ejercicio.
-     * @param dia El día de la rutina.
-     * @return El objeto Rutinas encontrado, o null si no existe.
-     * @throws SQLException Si ocurre un error al acceder a la base de datos.
-     */
+   
     public Rutinas obtenerRutinaPorEjercicioYDia(String ejercicio, String dia) throws SQLException {
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -77,11 +66,6 @@ public class RutinaDAO {
         return rutina;
     }
 
-    /**
-     * Obtiene todas las rutinas de la base de datos.
-     * @return Una lista de objetos Rutinas.
-     * @throws SQLException Si ocurre un error al acceder a la base de datos.
-     */
     public List<Rutinas> obtenerTodasLasRutinas() throws SQLException {
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -110,11 +94,7 @@ public class RutinaDAO {
         return listaRutinas;
     }
 
-    /**
-     * Actualiza una rutina existente en la base de datos.
-     * @param rutina El objeto Rutinas con los datos actualizados.
-     * @throws SQLException Si ocurre un error al acceder a la base de datos.
-     */
+    
     public void actualizarRutina(Rutinas rutina) throws SQLException {
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -140,12 +120,7 @@ public class RutinaDAO {
         }
     }
 
-    /**
-     * Elimina una rutina de la base de datos.
-     * @param ejercicio El nombre del ejercicio de la rutina a eliminar.
-     * @param dia El día de la rutina a eliminar.
-     * @throws SQLException Si ocurre un error al acceder a la base de datos.
-     */
+    
     public void eliminarRutina(String ejercicio, String dia) throws SQLException {
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -166,4 +141,4 @@ public class RutinaDAO {
             bddConexion.close(conn);
         }
     }
-}
+}*/
