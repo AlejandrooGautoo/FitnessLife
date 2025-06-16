@@ -1,3 +1,5 @@
+package Persistencia.dao;
+
 /*package Persistencia;
 
 import logica.FichaMedico; // <-- Asegúrate de que el nombre de la clase sea exacto (FichaMedico)
