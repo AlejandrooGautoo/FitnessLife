@@ -1,5 +1,3 @@
-package Persistencia.dao;
-
 /*package Persistencia;
 
 import logica.Alumnos;      // Tu clase POJO de Alumno
