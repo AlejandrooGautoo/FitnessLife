@@ -19,8 +19,9 @@ public class FitnessApp extends javax.swing.JFrame {
 
     
     DefaultTableModel tablaAlumno = new DefaultTableModel();
-    DefaultTableModel modelo2 = new DefaultTableModel();
+    DefaultTableModel tablaRutina = new DefaultTableModel();
     JTable jTableAlumnos = new JTable(tablaAlumno);
+    JTable jTableRutinas = new JTable(tablaRutina);
     ArrayList<Alumnos> listaAlumnos = new ArrayList<Alumnos>();
     ArrayList<Rutinas> listaRutinas = new ArrayList<Rutinas>();
     
@@ -48,8 +49,8 @@ public class FitnessApp extends javax.swing.JFrame {
     }
     
     public void refrescarTablaRutina(){
-        while(modelo2.getRowCount()>0){
-            modelo2.removeRow(0);
+        while(tablaRutina.getRowCount()>0){
+            tablaRutina.removeRow(0);
         }
         for (Rutinas rutina : listaRutinas){
         Object r[] = new Object[6];
@@ -59,21 +60,25 @@ public class FitnessApp extends javax.swing.JFrame {
         r[3] = rutina.getDescanso();
         r[4] = rutina.getMusculoObjetivo();
         r[5] = rutina.getDia();
-        modelo2.addRow(r);
+        tablaRutina.addRow(r);
         }
-        tblRutinas.setModel(modelo2);
+        tblRutinas.setModel(tablaRutina);
     }
     
     public FitnessApp() {
     initComponents();
     InitStyles();
     this.setTitle("Alumnos");
-    this.setSize(900, 700);
+    this.setSize(1100, 700);
     this.setLocationRelativeTo(null);
     
     jTableAlumnos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     jTableAlumnos.setRowSelectionAllowed(true);
     jTableAlumnos.setColumnSelectionAllowed(false);
+    
+    jTableRutinas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    jTableRutinas.setRowSelectionAllowed(true);
+    jTableRutinas.setColumnSelectionAllowed(false);
     
     // Configurar tabla de alumnos
     tablaAlumno.addColumn("Nombre");
@@ -87,12 +92,12 @@ public class FitnessApp extends javax.swing.JFrame {
     refrescarTablaAlumno();
     
     // AGREGAR: Configurar tabla de rutinas
-    modelo2.addColumn("Ejercicios");
-    modelo2.addColumn("Series/Repeticiones");
-    modelo2.addColumn("PesoEjercicio");
-    modelo2.addColumn("Descanso");
-    modelo2.addColumn("Musculo Objetivo");
-    modelo2.addColumn("Dia");
+    tablaRutina.addColumn("Ejercicios");
+    tablaRutina.addColumn("Series/Repeticiones");
+    tablaRutina.addColumn("PesoEjercicio");
+    tablaRutina.addColumn("Descanso");
+    tablaRutina.addColumn("Musculo Objetivo");
+    tablaRutina.addColumn("Dia");
     refrescarTablaRutina();
 }
     private void InitStyles(){
@@ -328,7 +333,7 @@ public class FitnessApp extends javax.swing.JFrame {
             PanelAlumnosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelAlumnosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 743, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 772, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(PanelAlumnosLayout.createSequentialGroup()
                 .addGap(26, 26, 26)
@@ -412,14 +417,14 @@ public class FitnessApp extends javax.swing.JFrame {
                                         .addGap(3, 3, 3))))
                             .addGroup(PanelAlumnosLayout.createSequentialGroup()
                                 .addGap(2, 2, 2)
-                                .addComponent(txtDniAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(PanelAlumnosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnBorrarAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtDniAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(PanelAlumnosLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(BotonAñadir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnBorrarAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(54, 54, 54)))
+                        .addGap(106, 106, 106)))
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -512,7 +517,7 @@ public class FitnessApp extends javax.swing.JFrame {
         PanelRutinas.setLayout(PanelRutinasLayout);
         PanelRutinasLayout.setHorizontalGroup(
             PanelRutinasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 755, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 784, Short.MAX_VALUE)
             .addGroup(PanelRutinasLayout.createSequentialGroup()
                 .addGroup(PanelRutinasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -590,7 +595,7 @@ public class FitnessApp extends javax.swing.JFrame {
                     .addComponent(SuperiorLila, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(PanelPrincipalLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(jTabbedPane1)
+                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 784, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(PanelPrincipalLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -653,7 +658,6 @@ public class FitnessApp extends javax.swing.JFrame {
         if (fila!= -1){
             tablaAlumno.removeRow(fila);
             listaAlumnos.remove(fila);
-            
         }
     }//GEN-LAST:event_btnBorrarAlumnoActionPerformed
 
@@ -707,7 +711,11 @@ public class FitnessApp extends javax.swing.JFrame {
     }//GEN-LAST:event_tblRutinasMouseClicked
 
     private void btnBorrarRutinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarRutinaActionPerformed
-        // TODO add your handling code here:
+         int fila = tblRutinas.getSelectedRow();
+            if (fila!= -1){
+            tablaRutina.removeRow(fila);
+            listaRutinas.remove(fila);
+            }
     }//GEN-LAST:event_btnBorrarRutinaActionPerformed
 
     public static void main(String args[]) {
