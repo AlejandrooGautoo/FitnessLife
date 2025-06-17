@@ -21,7 +21,7 @@ public class FitnessApp extends javax.swing.JFrame {
 
     private Connection connection;
     private AlumnosDao alumnosDao;
-   
+    
     DefaultTableModel tablaAlumno = new DefaultTableModel();
     DefaultTableModel tablaRutina = new DefaultTableModel();
     JTable jTableAlumnos = new JTable(tablaAlumno);
@@ -665,8 +665,7 @@ public class FitnessApp extends javax.swing.JFrame {
        alumno.setGenero(cboGeneroAlumno.getSelectedItem().toString().trim());
        alumno.setRutina(cboRutina.getSelectedItem().toString().trim());
        alumno.setDias(Integer.parseInt(txtDiasAlumno.getText()));
-      
-       boolean guardadoExitoso = alumnosDao.añadir(alumno);
+       alumnosDao.añadir(alumno);
        listaAlumnos.add(alumno);
        txtNombreAlumno.setText("");
        txtApellidoAlumno.setText("");
@@ -681,11 +680,14 @@ public class FitnessApp extends javax.swing.JFrame {
     }//GEN-LAST:event_BotonAñadirActionPerformed
 
     private void btnBorrarAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarAlumnoActionPerformed
+        
         int fila = tblRegistroAlumnos.getSelectedRow();
         if (fila!= -1){
+            int dniABorrar = (int) tblRegistroAlumnos.getValueAt(fila, 2);
+            alumnosDao.borrar(dniABorrar);
             tablaAlumno.removeRow(fila);
             listaAlumnos.remove(fila);
-        }
+           }
     }//GEN-LAST:event_btnBorrarAlumnoActionPerformed
 
     private void txtNombreAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreAlumnoActionPerformed
