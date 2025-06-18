@@ -8,9 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-/**
- * Clase simple para manejar conexiones a la base de datos
- */
+
 public class ConexionBD {
     
     

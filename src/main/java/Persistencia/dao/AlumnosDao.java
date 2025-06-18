@@ -63,4 +63,49 @@ public class AlumnosDao {
         stmt.close();
         return filasAfectadas > 0;
     }
+    @return
 }
+  public List<Alumnos> obtenerTodosAlumnos() {
+        List<Alumnos> alumnos = new ArrayList<>();
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            con = ConexionBD.getConnection(); // Obtener la conexión
+            String sql = "SELECT dni, nombre, apellido, peso, altura, genero, rutina, dias FROM alumnos"; // Columnas de tu tabla
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Alumnos alumno = new Alumnos();
+                // Usar los nombres de columna tal como están en tu tabla y los tipos Java que corresponden
+                alumno.setDni(rs.getInt("dni"));             // DNI como int
+                alumno.setNombre(rs.getString("nombre"));
+                alumno.setApellido(rs.getString("apellido"));
+                alumno.setPeso(rs.getInt("peso"));           // Peso como int
+                alumno.setAltura(rs.getDouble("altura"));
+                alumno.setGenero(rs.getString("genero"));
+                alumno.setRutina(rs.getString("rutina"));
+                alumno.setDias(rs.getInt("dias"));           // Días como int
+                alumnos.add(alumno);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al obtener alumnos de la base de datos: " + ex.getMessage(), "Error de Lectura DB", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace(); // Imprime la traza de la pila
+        } finally {
+            // Asegurarse de cerrar todos los recursos
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (con != null) con.close(); // Cerrar la conexión
+            } catch (SQLException ex) {
+                System.err.println("Error al cerrar recursos de obtenerTodosAlumnos: " + ex.getMessage());
+                ex.printStackTrace();
+            }
+        }
+        return alumnos;
+    }
+
+}   
+    
+
