@@ -73,6 +73,7 @@ public class FitnessApp extends javax.swing.JFrame {
     initComponents();
     InitStyles();
     
+    
     this.setTitle("Alumnos");
     this.setSize(1100, 700);
     this.setLocationRelativeTo(null);
@@ -125,6 +126,7 @@ public class FitnessApp extends javax.swing.JFrame {
     tablaRutina.addColumn("Dia");
     refrescarTablaRutina();
 }
+    
     private void InitStyles(){
         
         txtMensaje.putClientProperty( "FlatLaf.style", "font: 14 $light.font" );
@@ -718,9 +720,9 @@ public class FitnessApp extends javax.swing.JFrame {
         try{
             Rutinas rutina = new Rutinas();
             rutina.setEjercicio(txtEjerciciosRutina.getText().trim());
-            rutina.setSeriesRepeticiones(Integer.parseInt(txtSeriesRutina.getText().trim()));
-            rutina.setPesoEjercicio(Integer.parseInt(txtPesoEjercicioRutina.getText().trim()));
-            rutina.setDescanso(Integer.parseInt(txtDescansoRutina.getText().trim()));
+            rutina.setSeriesRepeticiones(txtSeriesRutina.getText().trim());
+            rutina.setPesoEjercicio(txtPesoEjercicioRutina.getText().trim());
+            rutina.setDescanso(txtDescansoRutina.getText().trim());
             rutina.setMusculoObjetivo(txtMusculoRutina.getText().trim());
             rutina.setDia(cboDiaRutina.getSelectedItem().toString());
             listaRutinas.add(rutina);

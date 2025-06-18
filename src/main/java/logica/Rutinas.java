@@ -1,68 +1,99 @@
 package logica;
 
-
 public class Rutinas {
-    String ejercicio;
-    int seriesRepeticiones;
-    int pesoEjercicio;
-    int descanso;
-    String musculoObjetivo;
+    int id;
+    int alumno_dni;
+    String ejercicios;
+    String series_repeticiones;
+    String peso_ejercicio;
+    String descanso;
+    String musculo_objetivo;
     String dia;
-
-    public Rutinas(String ejercicio, int seriesRepeticiones, int pesoEjercicio, int descanso, String musculoObjetivo, String dia) {
-        this.ejercicio = ejercicio;
-        this.seriesRepeticiones = seriesRepeticiones;
-        this.pesoEjercicio = pesoEjercicio;
+    
+    public Rutinas() {
+    }
+    
+    public Rutinas(int alumno_dni, String ejercicios, String series_repeticiones, 
+                   String peso_ejercicio, String descanso, String musculo_objetivo, String dia) {
+        this.alumno_dni = alumno_dni;
+        this.ejercicios = ejercicios;
+        this.series_repeticiones = series_repeticiones;
+        this.peso_ejercicio = peso_ejercicio;
         this.descanso = descanso;
-        this.musculoObjetivo = musculoObjetivo;
+        this.musculo_objetivo = musculo_objetivo;
+        this.dia = dia;
+    }
+    
+    public Rutinas(int id, int alumno_dni, String ejercicios, String series_repeticiones, 
+                   String peso_ejercicio, String descanso, String musculo_objetivo, String dia) {
+        this.id = id;
+        this.alumno_dni = alumno_dni;
+        this.ejercicios = ejercicios;
+        this.series_repeticiones = series_repeticiones;
+        this.peso_ejercicio = peso_ejercicio;
+        this.descanso = descanso;
+        this.musculo_objetivo = musculo_objetivo;
         this.dia = dia;
     }
 
-    public Rutinas() {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getAlumnoDni() {
+        return alumno_dni;
+    }
+
+    public void setAlumnoDni(int alumno_dni) {
+        this.alumno_dni = alumno_dni;
     }
 
     public String getEjercicio() {
-        return ejercicio;
+        return ejercicios;
     }
 
-    public int getSeriesRepeticiones() {
-        return seriesRepeticiones;
+    public void setEjercicio(String ejercicios) {
+        this.ejercicios = ejercicios;
     }
 
-    public int getPesoEjercicio() {
-        return pesoEjercicio;
+    public String getSeriesRepeticiones() {
+        return series_repeticiones;
     }
 
-    public int getDescanso() {
+    public void setSeriesRepeticiones(String series_repeticiones) {
+        this.series_repeticiones = series_repeticiones;
+    }
+
+    public String getPesoEjercicio() {
+        return peso_ejercicio;
+    }
+
+    public void setPesoEjercicio(String peso_ejercicio) {
+        this.peso_ejercicio = peso_ejercicio;
+    }
+
+    public String getDescanso() {
         return descanso;
     }
 
+    public void setDescanso(String descanso) {
+        this.descanso = descanso;
+    }
+
     public String getMusculoObjetivo() {
-        return musculoObjetivo;
+        return musculo_objetivo;
+    }
+
+    public void setMusculoObjetivo(String musculo_objetivo) {
+        this.musculo_objetivo = musculo_objetivo;
     }
 
     public String getDia() {
         return dia;
-    }
-
-    public void setEjercicio(String ejercici) {
-        this.ejercicio = ejercici;
-    }
-
-    public void setSeriesRepeticiones(int seriesRepeticiones) {
-        this.seriesRepeticiones = seriesRepeticiones;
-    }
-
-    public void setPesoEjercicio(int pesoEjercicio) {
-        this.pesoEjercicio = pesoEjercicio;
-    }
-
-    public void setDescanso(int descanso) {
-        this.descanso = descanso;
-    }
-
-    public void setMusculoObjetivo(String musculoObjetivo) {
-        this.musculoObjetivo = musculoObjetivo;
     }
 
     public void setDia(String dia) {
@@ -71,7 +102,10 @@ public class Rutinas {
 
     @Override
     public String toString() {
-        return "Rutinas{" + "ejercicio=" + ejercicio + ", seriesRepeticiones=" + seriesRepeticiones + ", pesoEjercicio=" + pesoEjercicio + ", descanso=" + descanso + ", musculoObjetivo=" + musculoObjetivo + ", dia=" + dia + '}';
+        return "Rutinas{" + "id=" + id + ", alumno_dni=" + alumno_dni + 
+               ", ejercicios=" + ejercicios + ", series_repeticiones=" + series_repeticiones + 
+               ", peso_ejercicio=" + peso_ejercicio + ", descanso=" + descanso + 
+               ", musculo_objetivo=" + musculo_objetivo + ", dia=" + dia + '}';
     }
 }
     
