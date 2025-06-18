@@ -6,6 +6,8 @@ import Persistencia.config.DataBaseConfig;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMTMaterialLighterIJTheme;
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import logica.Alumnos;
@@ -686,7 +688,11 @@ public class FitnessApp extends javax.swing.JFrame {
         int fila = tblRegistroAlumnos.getSelectedRow();
         if (fila!= -1){
             int dniABorrar = (int) tblRegistroAlumnos.getValueAt(fila, 2);
-            alumnosDao.borrar(dniABorrar);
+            try {
+                alumnosDao.borrar(dniABorrar);
+            } catch (SQLException ex) {
+                Logger.getLogger(FitnessApp.class.getName()).log(Level.SEVERE, null, ex);
+            }
             tablaAlumno.removeRow(fila);
             listaAlumnos.remove(fila);
            }
