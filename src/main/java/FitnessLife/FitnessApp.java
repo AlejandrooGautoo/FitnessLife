@@ -75,7 +75,6 @@ public class FitnessApp extends javax.swing.JFrame {
     initComponents();
     InitStyles();
     
-    
     this.setTitle("Alumnos");
     this.setSize(1100, 700);
     this.setLocationRelativeTo(null);
