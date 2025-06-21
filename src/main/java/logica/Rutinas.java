@@ -1,57 +1,38 @@
 package logica;
 
 public class Rutinas {
-    int id;
-    int alumno_dni;
+    int idRutina;
+    
     String ejercicios;
     String series_repeticiones;
     String peso_ejercicio;
     String descanso;
     String musculo_objetivo;
     String dia;
+    String tipoRutina;
     
     public Rutinas() {
     }
     
-    public Rutinas(int alumno_dni, String ejercicios, String series_repeticiones, 
-                   String peso_ejercicio, String descanso, String musculo_objetivo, String dia) {
-        this.alumno_dni = alumno_dni;
+    public Rutinas(int idRutina, String ejercicios, String series_repeticiones, 
+                   String peso_ejercicio, String descanso, String musculo_objetivo, String dia, String tipoRutina) {
+        this.idRutina = idRutina;
         this.ejercicios = ejercicios;
         this.series_repeticiones = series_repeticiones;
         this.peso_ejercicio = peso_ejercicio;
         this.descanso = descanso;
         this.musculo_objetivo = musculo_objetivo;
         this.dia = dia;
-    }
-    
-    public Rutinas(int id, int alumno_dni, String ejercicios, String series_repeticiones, 
-                   String peso_ejercicio, String descanso, String musculo_objetivo, String dia) {
-        this.id = id;
-        this.alumno_dni = alumno_dni;
-        this.ejercicios = ejercicios;
-        this.series_repeticiones = series_repeticiones;
-        this.peso_ejercicio = peso_ejercicio;
-        this.descanso = descanso;
-        this.musculo_objetivo = musculo_objetivo;
-        this.dia = dia;
+        this.tipoRutina = tipoRutina;
     }
 
-    public int getId() {
-        return id;
+    public int getIdRutina() {
+        return idRutina;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdRutina(int id) {
+        this.idRutina = id;
     }
-
-    public int getAlumnoDni() {
-        return alumno_dni;
-    }
-
-    public void setAlumnoDni(int alumno_dni) {
-        this.alumno_dni = alumno_dni;
-    }
-
     public String getEjercicio() {
         return ejercicios;
     }
@@ -99,13 +80,20 @@ public class Rutinas {
     public void setDia(String dia) {
         this.dia = dia;
     }
-
+    
+    public String getTipoRutina(){
+        return tipoRutina;
+    }
+    
+    public void setTipoRutina(String tipoRutina){
+        this.tipoRutina = tipoRutina;
+    }
     @Override
     public String toString() {
-        return "Rutinas{" + "id=" + id + ", alumno_dni=" + alumno_dni + 
+        return "Rutinas{" + "id=" + idRutina + 
                ", ejercicios=" + ejercicios + ", series_repeticiones=" + series_repeticiones + 
                ", peso_ejercicio=" + peso_ejercicio + ", descanso=" + descanso + 
-               ", musculo_objetivo=" + musculo_objetivo + ", dia=" + dia + '}';
+               ", musculo_objetivo=" + musculo_objetivo + ", dia=" + dia + "tipoRutina=" + tipoRutina +'}';
     }
 }
     

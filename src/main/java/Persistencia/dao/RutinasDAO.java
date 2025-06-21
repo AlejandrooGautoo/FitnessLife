@@ -2,6 +2,8 @@ package Persistencia.dao;
 
 import logica.Rutinas;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RutinasDAO {
     private Connection connection;
@@ -13,79 +15,93 @@ public class RutinasDAO {
     public void crearTabla() throws SQLException {
         String sql = """
                 CREATE TABLE IF NOT EXISTS rutinas(
-                id INTEGER PRIMARY KEY AUTO_INCREMENT,
-                alumno_dni INTEGER NOT NULL,
-                ejercicios TEXT,
-                series_repeticiones TEXT,
-                peso_ejercicio TEXT,
-                descanso TEXT,
-                musculo_objetivo TEXT,
-                dia TEXT,
-                FOREIGN KEY (alumno_dni) REFERENCES alumnos(dni) ON DELETE CASCADE
+                idRutina INTEGER PRIMARY KEY AUTO_INCREMENT,
+                ejercicios VARCHAR(100),
+                series_repeticiones INT,
+                peso_ejercicio INT,
+                descanso INT,
+                musculo_objetivo VARCHAR(100),
+                dia VARCHAR(100),
+                tipoRutina VARCHAR(100)
                 )
                 """;
         PreparedStatement stmt = connection.prepareStatement(sql);
-        stmt.executeUpdate();
+        stmt.executeUpdate();   
         stmt.close();
     }
     
-    public boolean añadir(Rutinas rutina) throws SQLException {
-        String sql = "INSERT INTO rutinas (alumno_dni, ejercicios, series_repeticiones, peso_ejercicio, descanso, musculo_objetivo, dia) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        
-        PreparedStatement stmt = connection.prepareStatement(sql);
-        stmt.setInt(1, rutina.getAlumnoDni());
-        stmt.setString(2, rutina.getEjercicio());
-        stmt.setString(3, rutina.getSeriesRepeticiones());
-        stmt.setString(4, rutina.getPesoEjercicio());
-        stmt.setString(5, rutina.getDescanso());
-        stmt.setString(6, rutina.getMusculoObjetivo());
-        stmt.setString(7, rutina.getDia());
-        
-        int filasAfectadas = stmt.executeUpdate();
-        stmt.close();
-        return filasAfectadas > 0;
-    }
+   public int añadir(Rutinas rutina) throws SQLException {
+    String sql = "INSERT INTO rutinas (ejercicios, series_repeticiones, peso_ejercicio, descanso, musculo_objetivo, dia, tipoRutina) VALUES (?, ?, ?, ?, ?, ?, ?)";
     
-    public boolean crearRutinaInicial(int alumno_dni) throws SQLException {
-        String sql = "INSERT INTO rutinas (alumno_dni, ejercicios, series_repeticiones, peso_ejercicio, descanso, musculo_objetivo, dia) VALUES (?, '', '', '', '', '', '')";
-        
-        PreparedStatement stmt = connection.prepareStatement(sql);
-        stmt.setInt(1, alumno_dni);
-        
-        int filasAfectadas = stmt.executeUpdate();
-        stmt.close();
-        return filasAfectadas > 0;
-    }
+    PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);       
     
-    public Rutinas obtenerPorAlumno(int alumno_dni) throws SQLException {
-        String sql = "SELECT * FROM rutinas WHERE alumno_dni = ?";
-        
-        PreparedStatement stmt = connection.prepareStatement(sql);
-        stmt.setInt(1, alumno_dni);
-        
-        ResultSet rs = stmt.executeQuery();
+    stmt.setString(1, rutina.getEjercicio());
+    stmt.setString(2, rutina.getSeriesRepeticiones());
+    stmt.setString(3, rutina.getPesoEjercicio());
+    stmt.setString(4, rutina.getDescanso());
+    stmt.setString(5, rutina.getMusculoObjetivo());
+    stmt.setString(6, rutina.getDia());
+    stmt.setString(7, rutina.getTipoRutina());
+    
+    int filasAfectadas = stmt.executeUpdate();
+    
+    int idGenerado = -1;
+    if (filasAfectadas > 0) {
+        ResultSet rs = stmt.getGeneratedKeys();
         if (rs.next()) {
+            idGenerado = rs.getInt(1);
+        }
+        rs.close();
+    }
+    
+    stmt.close();
+    return idGenerado; // Devuelve el ID generado
+}
+    
+    
+    
+    public List<Rutinas> obtenerRutina() {
+    List<Rutinas> rutinas = new ArrayList<>();
+    String sql = "SELECT * FROM rutinas";
+    
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+    
+    try {
+        stmt = connection.prepareStatement(sql);
+        rs = stmt.executeQuery();
+        
+        while (rs.next()) {
             Rutinas rutina = new Rutinas(
-                rs.getInt("id"),
-                rs.getInt("alumno_dni"),
+                rs.getInt("idRutina"),
                 rs.getString("ejercicios"),
                 rs.getString("series_repeticiones"),
                 rs.getString("peso_ejercicio"),
                 rs.getString("descanso"),
                 rs.getString("musculo_objetivo"),
-                rs.getString("dia")
+                rs.getString("dia"),
+                rs.getString("tipoRutina")
             );
-            rs.close();
-            stmt.close();
-            return rutina;
+            rutinas.add(rutina);
         }
-        rs.close();
-        stmt.close();
-        return null;
+    } catch (SQLException ex) {
+        System.out.println("Error al obtener rutinas: " + ex.getMessage());
+        ex.printStackTrace();
+    } finally {
+        try {
+            if (rs != null) rs.close();
+            if (stmt != null) stmt.close();
+        } catch (SQLException ex) {
+            System.err.println("Error al cerrar recursos: " + ex.getMessage());
+        }
     }
     
-    public boolean actualizar(Rutinas rutina) throws SQLException {
-        String sql = "UPDATE rutinas SET ejercicios = ?, series_repeticiones = ?, peso_ejercicio = ?, descanso = ?, musculo_objetivo = ?, dia = ? WHERE alumno_dni = ?";
+    return rutinas;
+}
+
+    
+    public boolean actualizarRutina(Rutinas rutina) throws SQLException {
+        String sql = "UPDATE rutinas SET ejercicios = ?, series_repeticiones = ?, peso_ejercicio = ?, descanso = ?, musculo_objetivo = ?, dia = ?, tipoRutina = ? WHERE idRutina = ?";
         
         PreparedStatement stmt = connection.prepareStatement(sql);
         stmt.setString(1, rutina.getEjercicio());
@@ -94,18 +110,19 @@ public class RutinasDAO {
         stmt.setString(4, rutina.getDescanso());
         stmt.setString(5, rutina.getMusculoObjetivo());
         stmt.setString(6, rutina.getDia());
-        stmt.setInt(7, rutina.getAlumnoDni());
+        stmt.setString(7, rutina.getTipoRutina());
+        stmt.setInt(8, rutina.getIdRutina());
         
         int filasAfectadas = stmt.executeUpdate();
         stmt.close();
         return filasAfectadas > 0;
     }
     
-    public boolean borrar(int alumno_dni) throws SQLException {
-        String sql = "DELETE FROM rutinas WHERE alumno_dni = ?";
+    public boolean borrar(int idRutina) throws SQLException {
+        String sql = "DELETE FROM rutinas WHERE idRutina = ?";
         
         PreparedStatement stmt = connection.prepareStatement(sql);
-        stmt.setInt(1, alumno_dni);
+        stmt.setInt(1, idRutina);
         
         int filasAfectadas = stmt.executeUpdate();
         stmt.close();

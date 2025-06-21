@@ -1,15 +1,18 @@
 package Persistencia.dao;
 
+
 import logica.Alumnos;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
 
 public class AlumnosDao {
     private Connection connection;
-    private RutinasDAO rutinasDAO;
     
     public AlumnosDao(Connection connection) {
         this.connection = connection;
-        this.rutinasDAO = new RutinasDAO(connection);
+        new RutinasDAO(connection);
     }
     
     public void crearTabla() throws SQLException {
@@ -29,6 +32,23 @@ public class AlumnosDao {
         stmt.executeUpdate();
         stmt.close();
     }
+    public boolean actualizarAlumno(Alumnos alumno) throws SQLException {
+    String sql = "UPDATE alumnos SET nombre = ?, apellido = ?, peso = ?, altura = ?, genero = ?, rutina = ?, dias = ? WHERE dni = ?";
+    
+    PreparedStatement stmt = connection.prepareStatement(sql);
+    stmt.setString(1, alumno.getNombre());
+    stmt.setString(2, alumno.getApellido());
+    stmt.setInt(3, alumno.getPeso());
+    stmt.setDouble(4, alumno.getAltura());
+    stmt.setString(5, alumno.getGenero());
+    stmt.setString(6, alumno.getRutina());
+    stmt.setInt(7, alumno.getDias());
+    stmt.setInt(8, alumno.getDni()); // WHERE dni = ?
+    
+    int filasAfectadas = stmt.executeUpdate();
+    stmt.close();
+    return filasAfectadas > 0;
+}
     
     public boolean añadir(Alumnos alumno) throws SQLException {
         String sql = "INSERT INTO alumnos (dni, nombre, apellido, peso, altura, genero, rutina, dias) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -44,13 +64,7 @@ public class AlumnosDao {
         stmt.setInt(8, alumno.getDias());
         
         int filasAfectadas = stmt.executeUpdate();
-        stmt.close();
-        
-        // Si se añadió el alumno correctamente, crear rutina inicial vacía
-        if (filasAfectadas > 0) {
-            rutinasDAO.crearRutinaInicial(alumno.getDni());
-        }
-        
+        stmt.close();        
         return filasAfectadas > 0;
     }
     
@@ -63,17 +77,16 @@ public class AlumnosDao {
         stmt.close();
         return filasAfectadas > 0;
     }
-    @return
+    
 
-  public List<Alumnos> obtenerTodosAlumnos() {
+    public List<Alumnos> obtenerTodosAlumnos() {
         List<Alumnos> alumnos = new ArrayList<>();
-        Connection con = null;
+        
         PreparedStatement ps = null;
         ResultSet rs = null;
-        try {
-            con = ConexionBD.getConnection(); // Obtener la conexión
-            String sql = "SELECT dni, nombre, apellido, peso, altura, genero, rutina, dias FROM alumnos"; // Columnas de tu tabla
-            ps = con.prepareStatement(sql);
+        try {             
+            String sql = "SELECT * FROM alumnos"; // Columnas de tu tabla
+            ps = this.connection.prepareStatement(sql);
             rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -97,7 +110,7 @@ public class AlumnosDao {
             try {
                 if (rs != null) rs.close();
                 if (ps != null) ps.close();
-                if (con != null) con.close(); // Cerrar la conexión
+                
             } catch (SQLException ex) {
                 System.err.println("Error al cerrar recursos de obtenerTodosAlumnos: " + ex.getMessage());
                 ex.printStackTrace();
@@ -105,7 +118,4 @@ public class AlumnosDao {
         }
         return alumnos;
     }
-
-}   
-    
-
+}
