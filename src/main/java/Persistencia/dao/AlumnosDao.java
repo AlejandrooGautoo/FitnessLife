@@ -91,7 +91,7 @@ public class AlumnosDao {
 
             while (rs.next()) {
                 Alumnos alumno = new Alumnos();
-                // Usar los nombres de columna tal como están en tu tabla y los tipos Java que corresponden
+                // estan ordenados tal cual esta la tabla de SQL
                 alumno.setDni(rs.getInt("dni"));             // DNI como int
                 alumno.setNombre(rs.getString("nombre"));
                 alumno.setApellido(rs.getString("apellido"));
@@ -104,9 +104,9 @@ public class AlumnosDao {
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al obtener alumnos de la base de datos: " + ex.getMessage(), "Error de Lectura DB", JOptionPane.ERROR_MESSAGE);
-            ex.printStackTrace(); // Imprime la traza de la pila
+            ex.printStackTrace(); // imprime la traza de la pila
         } finally {
-            // Asegurarse de cerrar todos los recursos
+            // se cierran recursos para guardar espacio de memoria
             try {
                 if (rs != null) rs.close();
                 if (ps != null) ps.close();

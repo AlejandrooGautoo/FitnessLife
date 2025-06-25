@@ -15,18 +15,20 @@ import logica.Alumnos;
 import logica.Rutinas;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
-
+import java.io.PrintWriter;
 
 
 
 public class FitnessApp extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FitnessApp.class.getName());
-
+    
+    //declaramos los objetos conexion y los daos
     private Connection connection;
     private AlumnosDao alumnosDao;
     private RutinasDAO rutinasDao;
     
+    //creamos los modelos para mostrar alumnos y rutinas y las listas para almacenar datos
     DefaultTableModel tablaAlumno = new DefaultTableModel();
     DefaultTableModel tablaRutina = new DefaultTableModel();
     JTable jTableAlumnos = new JTable(tablaAlumno);
@@ -49,7 +51,7 @@ public class FitnessApp extends javax.swing.JFrame {
                 listaAlumnos = new ArrayList<>();
             }
             // Usa SQLException para un manejo más específico
-            // Asegurarse de que la lista no sea null en caso de error
+            // se asegura de que la lista no sea null en caso de error
             
         } else {
             logger.log(Level.WARNING, "AlumnosDao es null. No se pueden cargar alumnos de la base de datos.");
@@ -79,12 +81,12 @@ public class FitnessApp extends javax.swing.JFrame {
         if (rutinasDao != null) {
             try {
                 listaRutinas = (ArrayList<Rutinas>) rutinasDao.obtenerRutina();
-            }catch (Exception e) { // Para cualquier otra excepción inesperada
+            }catch (Exception e) { 
                 logger.log(Level.SEVERE, "Error inesperado al cargar rutinas.", e);
                 listaRutinas = new ArrayList<>();
             }
             // Usa SQLException para un manejo más específico
-            // Asegurarse de que la lista no sea null en caso de error
+            // se asegura de que la lista no sea null en caso de error
             
         } else {
             logger.log(Level.WARNING, "RutinasDao es null. No se pueden cargar alumnos de la base de datos.");
@@ -115,8 +117,6 @@ public class FitnessApp extends javax.swing.JFrame {
     this.setSize(1100, 700);
     this.setLocationRelativeTo(null);
     
-    
-    
     try {
         connection = ConexionBD.getConnection();         
 
@@ -125,7 +125,7 @@ public class FitnessApp extends javax.swing.JFrame {
         
         
         
-        // Crear las tablas si no existen
+        // crear las tablas si no existen
         alumnosDao.crearTabla();
         
         
@@ -154,7 +154,7 @@ public class FitnessApp extends javax.swing.JFrame {
     tablaAlumno.addColumn("Dias/semana");
     refrescarTablaAlumno();
     
-    // AGREGAR: Configurar tabla de rutinas
+    // Configurar tabla de rutinas
     tablaRutina.addColumn("Ejercicios");
     tablaRutina.addColumn("Series/Repeticiones");
     tablaRutina.addColumn("PesoEjercicio");
@@ -213,6 +213,7 @@ public class FitnessApp extends javax.swing.JFrame {
         cboGeneroAlumno = new javax.swing.JComboBox<>();
         cboRutina = new javax.swing.JComboBox<>();
         btnModificarAlumno = new javax.swing.JButton();
+        btnCrearTxtAlumno = new javax.swing.JButton();
         PanelRutinas = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -233,6 +234,7 @@ public class FitnessApp extends javax.swing.JFrame {
         btnModificarRutina = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         cboTipoRutina = new javax.swing.JComboBox<>();
+        btnCrearTxtRutina = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -412,10 +414,20 @@ public class FitnessApp extends javax.swing.JFrame {
             }
         });
 
+        btnModificarAlumno.setBackground(new java.awt.Color(51, 0, 51));
+        btnModificarAlumno.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnModificarAlumno.setForeground(new java.awt.Color(255, 255, 255));
         btnModificarAlumno.setText("MODIFICAR");
         btnModificarAlumno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModificarAlumnoActionPerformed(evt);
+            }
+        });
+
+        btnCrearTxtAlumno.setText("CREAR TXT");
+        btnCrearTxtAlumno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearTxtAlumnoActionPerformed(evt);
             }
         });
 
@@ -427,7 +439,7 @@ public class FitnessApp extends javax.swing.JFrame {
                 .addGroup(PanelAlumnosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelAlumnosLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 772, Short.MAX_VALUE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 783, Short.MAX_VALUE))
                     .addGroup(PanelAlumnosLayout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addGroup(PanelAlumnosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -468,7 +480,9 @@ public class FitnessApp extends javax.swing.JFrame {
                             .addComponent(BotonAñadir, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
                             .addComponent(btnBorrarAlumno, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
                             .addComponent(btnModificarAlumno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(118, 118, 118)))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCrearTxtAlumno)
+                        .addGap(25, 25, 25)))
                 .addContainerGap())
         );
         PanelAlumnosLayout.setVerticalGroup(
@@ -521,7 +535,9 @@ public class FitnessApp extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelAlumnosLayout.createSequentialGroup()
                         .addGap(12, 12, 12)
-                        .addComponent(btnModificarAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(PanelAlumnosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnModificarAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCrearTxtAlumno))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnBorrarAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)))
@@ -598,6 +614,7 @@ public class FitnessApp extends javax.swing.JFrame {
         }
 
         btnAñadirRutina.setBackground(new java.awt.Color(51, 0, 51));
+        btnAñadirRutina.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnAñadirRutina.setForeground(new java.awt.Color(255, 255, 255));
         btnAñadirRutina.setText("AÑADIR");
         btnAñadirRutina.setBorder(null);
@@ -610,6 +627,7 @@ public class FitnessApp extends javax.swing.JFrame {
         });
 
         btnBorrarRutina.setBackground(new java.awt.Color(51, 0, 51));
+        btnBorrarRutina.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnBorrarRutina.setForeground(new java.awt.Color(255, 255, 255));
         btnBorrarRutina.setText("BORRAR");
         btnBorrarRutina.setBorder(null);
@@ -621,6 +639,9 @@ public class FitnessApp extends javax.swing.JFrame {
             }
         });
 
+        btnModificarRutina.setBackground(new java.awt.Color(51, 0, 51));
+        btnModificarRutina.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnModificarRutina.setForeground(new java.awt.Color(255, 255, 255));
         btnModificarRutina.setText("MODIFICAR");
         btnModificarRutina.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -633,11 +654,18 @@ public class FitnessApp extends javax.swing.JFrame {
 
         cboTipoRutina.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hipertrofia", "Fuerza ", "Ac. Fis.", "Perdida Peso", "Rehabilitacion" }));
 
+        btnCrearTxtRutina.setText("CREAR TXT");
+        btnCrearTxtRutina.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearTxtRutinaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout PanelRutinasLayout = new javax.swing.GroupLayout(PanelRutinas);
         PanelRutinas.setLayout(PanelRutinasLayout);
         PanelRutinasLayout.setHorizontalGroup(
             PanelRutinasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 784, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 795, Short.MAX_VALUE)
             .addGroup(PanelRutinasLayout.createSequentialGroup()
                 .addGroup(PanelRutinasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(PanelRutinasLayout.createSequentialGroup()
@@ -671,6 +699,8 @@ public class FitnessApp extends javax.swing.JFrame {
                     .addComponent(btnBorrarRutina, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAñadirRutina, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnModificarRutina, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCrearTxtRutina)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         PanelRutinasLayout.setVerticalGroup(
@@ -693,7 +723,8 @@ public class FitnessApp extends javax.swing.JFrame {
                     .addComponent(txtMusculoRutina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13)
                     .addComponent(txtSeriesRutina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10))
+                    .addComponent(jLabel10)
+                    .addComponent(btnCrearTxtRutina))
                 .addGroup(PanelRutinasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelRutinasLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -727,7 +758,7 @@ public class FitnessApp extends javax.swing.JFrame {
                     .addComponent(SuperiorLila, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(PanelPrincipalLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(jTabbedPane1)
+                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 795, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(PanelPrincipalLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -865,7 +896,7 @@ try{
     private void tblRutinasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblRutinasMouseClicked
         int fila = tblRutinas.getSelectedRow();
     if (fila != -1) {
-        // Obtener el alumno desde la lista
+        // obtengo la rutina desde la lista
         Rutinas rutina = listaRutinas.get(fila);
         
         txtEjerciciosRutina.setText(rutina.getEjercicio());
@@ -896,7 +927,7 @@ try{
     private void tblRegistroAlumnosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblRegistroAlumnosMouseClicked
      int fila = tblRegistroAlumnos.getSelectedRow();
     if (fila != -1) {
-        // Obtener el alumno desde la lista
+        // obtener el alumno desde la lista
         Alumnos alumno = listaAlumnos.get(fila);
         
         // Cargar los datos en los campos
@@ -920,8 +951,8 @@ try{
         txtSeriesRutina.setText("");
         txtPesoEjercicioRutina.setText("");
         txtDescansoRutina.setText("");
-        txtMusculoRutina.setText("");     // ComboBox
-        cboDiaRutina.setSelectedIndex(0);           // ComboBox
+        txtMusculoRutina.setText("");     
+        cboDiaRutina.setSelectedIndex(0); // ComboBox
         cboTipoRutina.setSelectedIndex(0);
     }
     private void limpiarCamposAlumno() {
@@ -936,7 +967,7 @@ try{
 }
     private void btnModificarAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarAlumnoActionPerformed
       try {
-        // Crear objeto alumno con los datos de los campos
+        // crear objeto alumno con los datos de los campos
         Alumnos alumno = new Alumnos();
         alumno.setDni(Integer.parseInt(txtDniAlumno.getText().trim()));
         alumno.setNombre(txtNombreAlumno.getText().trim());
@@ -947,17 +978,17 @@ try{
         alumno.setRutina(cboRutina.getSelectedItem().toString());
         alumno.setDias(Integer.parseInt(txtDiasAlumno.getText().trim()));
         
-        // Actualizar en la base de datos
+        // actualizar en la base de datos
         alumnosDao.actualizarAlumno(alumno);
         
-        // Actualizar en la lista local
+        // actualizar en la lista local
         int fila = tblRegistroAlumnos.getSelectedRow();
         if (fila != -1) {
             listaAlumnos.set(fila, alumno);
         }
-        refrescarTablaAlumno(); // Asumiendo que tienes este método
+        refrescarTablaAlumno(); 
         
-        // Limpiar los campos
+        // limpiar los campos
         limpiarCamposAlumno();
         
     } catch (Exception e) {
@@ -967,17 +998,17 @@ try{
 
     private void btnModificarRutinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarRutinaActionPerformed
         try {
-        // Verificar que hay una fila seleccionada
+        // verificar que hay una fila seleccionada
         int fila = tblRutinas.getSelectedRow();
         if (fila == -1) {
             System.out.println("Error: No hay ninguna rutina seleccionada");
             return;
         }
         
-        // Obtener la rutina original para conservar el ID
+        // obtener la rutina original para conservar el ID
         Rutinas rutinaOriginal = listaRutinas.get(fila);
         
-        // Crear objeto rutina con los datos de los campos
+        // crear objeto rutina con los datos de los campos
         Rutinas rutina = new Rutinas();
         rutina.setIdRutina(rutinaOriginal.getIdRutina()); // IMPORTANTE: Conservar el ID
         rutina.setEjercicio(txtEjerciciosRutina.getText().trim());
@@ -987,7 +1018,7 @@ try{
         rutina.setMusculoObjetivo(txtMusculoRutina.getText().trim());
         rutina.setDia(cboDiaRutina.getSelectedItem().toString());
         rutina.setTipoRutina(cboTipoRutina.getSelectedItem().toString());
-        // Actualizar en la base de datos
+        // actualizar en la base de datos
         rutinasDao.actualizarRutina(rutina);
         // Actualizar en la lista local
         listaRutinas.set(fila, rutina);
@@ -998,6 +1029,46 @@ try{
         e.printStackTrace(); // Para ver el stack trace completo
     }
     }//GEN-LAST:event_btnModificarRutinaActionPerformed
+
+    private void btnCrearTxtAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearTxtAlumnoActionPerformed
+        try {
+        PrintWriter writer = new PrintWriter("alumnos.txt");
+        writer.println("Nombre\tApellido\tDNI\tPeso\tAltura\tGenero\tRutina\tDias");
+        
+        for (Alumnos alumno : listaAlumnos) {
+            writer.println(alumno.getNombre() + "\t" + alumno.getApellido() + "\t" + 
+                          alumno.getDni() + "\t" + alumno.getPeso() + "\t" + 
+                          alumno.getAltura() + "\t" + alumno.getGenero() + "\t" + 
+                          alumno.getRutina() + "\t" + alumno.getDias());
+        }
+        
+        writer.close();
+        JOptionPane.showMessageDialog(this, "Archivo alumnos.txt creado en el escritorio!");
+        
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+    }
+    }//GEN-LAST:event_btnCrearTxtAlumnoActionPerformed
+
+    private void btnCrearTxtRutinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearTxtRutinaActionPerformed
+        try {
+        PrintWriter writer = new PrintWriter("rutinas.txt");
+        writer.println("ID\tEjercicios\tSeries/Repeticiones\tPeso\tDescanso\tMusculo\tDia\tTipo");
+        
+        for (Rutinas rutina : listaRutinas) {
+            writer.println(rutina.getIdRutina() + "\t" + rutina.getEjercicio() + "\t" + 
+                          rutina.getSeriesRepeticiones() + "\t" + rutina.getPesoEjercicio() + "\t" + 
+                          rutina.getDescanso() + "\t" + rutina.getMusculoObjetivo() + "\t" + 
+                          rutina.getDia() + "\t" + rutina.getTipoRutina());
+        }
+        
+        writer.close();
+        JOptionPane.showMessageDialog(this, "Archivo rutinas.txt creado en la carpeta del proyecto!");
+        
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+    }
+    }//GEN-LAST:event_btnCrearTxtRutinaActionPerformed
     
     
     public static void main(String args[]) {
@@ -1033,6 +1104,8 @@ try{
     private javax.swing.JButton btnAñadirRutina;
     private javax.swing.JButton btnBorrarAlumno;
     private javax.swing.JButton btnBorrarRutina;
+    private javax.swing.JButton btnCrearTxtAlumno;
+    private javax.swing.JButton btnCrearTxtRutina;
     private javax.swing.JButton btnModificarAlumno;
     private javax.swing.JButton btnModificarRutina;
     private javax.swing.JComboBox<String> cboDiaRutina;

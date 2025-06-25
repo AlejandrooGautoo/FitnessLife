@@ -16,7 +16,7 @@ public class Rutinas {
     
     public Rutinas(int idRutina, String ejercicios, String series_repeticiones, 
                    String peso_ejercicio, String descanso, String musculo_objetivo, String dia, String tipoRutina) {
-        this.idRutina = idRutina;
+        this.idRutina = idRutina;//el atributo idRutina es igual al parametro idRutina que obtengo
         this.ejercicios = ejercicios;
         this.series_repeticiones = series_repeticiones;
         this.peso_ejercicio = peso_ejercicio;

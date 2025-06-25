@@ -1,0 +1,5 @@
+Nombre	Apellido	DNI	Peso	Altura	Genero	Rutina	Dias
+SQWIWW	MXIWE	1231	390	9239.0	Femenino	Fuerza 	3241
+powkkas	dmkow	31299	932013	212.0	Masculino	Hipertrofia	3923
+sloqwei	OQWP	932019	329	839.0	Femenino	Ac. Fis.	3
+xmiqwje	qpowie	983120	93823	39128.0	Masculino	Hipertrofia	32

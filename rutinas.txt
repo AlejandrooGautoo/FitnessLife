@@ -1,0 +1,4 @@
+ID	Ejercicios	Series/Repeticiones	Peso	Descanso	Musculo	Dia	Tipo
+3	poxmqiwe	92	32	938	3828	Lunes	Hipertrofia
+4	Press banca	239	98	29	Pecho	Lunes	Hipertrofia
+5	chinwen	990	931	69	sas	Jueves	Ac. Fis.

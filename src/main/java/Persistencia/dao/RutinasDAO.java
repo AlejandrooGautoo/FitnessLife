@@ -25,11 +25,12 @@ public class RutinasDAO {
                 tipoRutina VARCHAR(100)
                 )
                 """;
-        PreparedStatement stmt = connection.prepareStatement(sql);
+        PreparedStatement stmt = connection.prepareStatement(sql); 
         stmt.executeUpdate();   
         stmt.close();
     }
     
+    //le pasamos al metodo un parametro de tipo Rutinas llamado rutina
    public int añadir(Rutinas rutina) throws SQLException {
     String sql = "INSERT INTO rutinas (ejercicios, series_repeticiones, peso_ejercicio, descanso, musculo_objetivo, dia, tipoRutina) VALUES (?, ?, ?, ?, ?, ?, ?)";
     
@@ -55,17 +56,17 @@ public class RutinasDAO {
     }
     
     stmt.close();
-    return idGenerado; // Devuelve el ID generado
+    return idGenerado; // devuelve el ID generado
 }
     
     
-    
+    //obtenemos con esto la lista completa de las rutians
     public List<Rutinas> obtenerRutina() {
     List<Rutinas> rutinas = new ArrayList<>();
     String sql = "SELECT * FROM rutinas";
     
-    PreparedStatement stmt = null;
-    ResultSet rs = null;
+    PreparedStatement stmt = null;//prepared statement lleva ordenes a la base de datos
+    ResultSet rs = null; //result set obtiene los resultados
     
     try {
         stmt = connection.prepareStatement(sql);
